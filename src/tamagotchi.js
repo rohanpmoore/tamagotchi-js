@@ -1,20 +1,20 @@
-export class Tamagotchi {
+const DEV = 100;
 
-  constructor(name) {
+export class Tamagotchi {
+  constructor(name, color, difficulty) {
     this.name = name;
     this.hunger = 100;
     this.thirst = 100;
     this.boredom = 100;
     this.alerts = [];
-  }
-
-  setDecay() {
-    setInterval(() => {
+    this.color = color;
+    this.difficulty = 4-difficulty;
+    this.decay = setInterval(() => {
       this.hunger--;
       this.thirst--;
       this.boredom--;
       this.checkAlerts();
-    }, 60000);
+    }, 30000*this.difficulty/DEV);
   }
 
   checkAlerts() {
@@ -67,6 +67,10 @@ export class Tamagotchi {
   }
   playFetch() {
     this.recreation(20);
+  }
+
+  end() {
+    clearInterval(this.decay);
   }
 
   // save() {

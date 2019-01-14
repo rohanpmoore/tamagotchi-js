@@ -4,9 +4,8 @@ describe('A Tamagotchi', function() {
   let tamagotchi = null;
 
   beforeEach(function() {
-    tamagotchi = new Tamagotchi("Test");
+    tamagotchi = new Tamagotchi("Test", "Blue", 2);
     jasmine.clock().install();
-    tamagotchi.setDecay();
   });
 
   afterEach(function() {
@@ -41,7 +40,6 @@ describe('A Tamagotchi', function() {
     jasmine.clock().tick(3000001);
     expect(tamagotchi.alerts).toEqual(["FEED ME!", "I'M THIRSTY!", "I'M BORED!"])
     tamagotchi.eatPizzaSlice();
-    console.log(tamagotchi.hunger);
     expect(tamagotchi.alerts).toEqual(["I'M THIRSTY!", "I'M BORED!"])
   });
 });

@@ -2,11 +2,40 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Super Galactic Age Calculator</title>
+  <title>Tamagotchi</title>
 </head>
 <body>
   <div class="container">
-
+    <h1>Tamagotchi</h1>
+    <div id="main-menu">
+      <button type="button" name="new" id="new">Create new Tamagotchi</button>
+      <button type="button" name="load" id="load">Load tamagotchi</button>
+    </div>
+    <div id="create" style="display: none">
+      <form id="create-form" class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name"><br>
+        <label for="color">Color: </label>
+        <input type="text" name="color" id="color"><br>
+        <label for="difficulty">Difficulty: </label>
+        <input type="number" name="difficulty" id="difficulty">
+        <button type="submit" name="button">Submit</button>
+      </form>
+    </div>
+    <div id="title" style="display: none">
+      <div id="status-hunger"></div><br>
+      <div id="status-thirst"></div><br>
+      <div id="status-boredom"></div><br>
+      <div id="status-alerts"></div>
+      <button id="stop" type="button" name="stop" >Stop</button>
+      <button id="update" type="button" name="update">Update</button>
+      <button id="pizza-slice" type="button" name="pizza-slice">Give slice of pizza</button>
+      <button id="pizza-whole" type="button" name="pizza-whole">Give whole pizza</button>
+      <button id="water" type="button" name="drink-water">Give water</button>
+      <button id="play-fetch" type="button" name="play-fetch">Play fetch</button>
+    </div>
+    <p id="end"></p>
+    <p id="error" style="display: none; color: red"></p>
   </div>
 </body>
 </html>
