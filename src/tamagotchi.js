@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 export class Tamagotchi {
   constructor(name, color, difficulty, devspeed = 100) {
     this.devspeed = devspeed;
@@ -18,8 +20,8 @@ export class Tamagotchi {
     }, 30000*this.difficulty/this.devspeed);
     this.messagePicker = setInterval(() => {
       this.message = this.messageList[Math.floor(Math.random()*this.messageList.length)];
-    }, 150000*this.difficulty/this.devspeed);
-    this.messageList = []
+    }, 150000/this.devspeed);
+    this.messageList = ["Random Comment"]
   }
 
   checkAlerts() {
@@ -40,13 +42,13 @@ export class Tamagotchi {
   checkMood() {
     const lowest = Math.min(this.hunger, this.thirst, this.boredom);
     if(lowest <= 10) {
-      this.mood = "Desperate";
+      this.mood = "Panic";
     } else if (lowest <= 25) {
-      this.mood = "Angry";
+      this.mood = "Rage";
     } else if (lowest <= 50) {
-      this.mood = "Irritated";
+      this.mood = "Impatient";
     } else if (lowest <= 75) {
-      this.mood = "Indifferent";
+      this.mood = "OK";
     } else {
       this.mood = "Happy"
     }
@@ -93,13 +95,19 @@ export class Tamagotchi {
     clearInterval(this.messagePicker);
   }
 
-  // save() {
-  //   const fs = require('fs');
-  //   fs.writeFile("/tmp/test.txt", "Hey there!", function(err) {
-  //     if(err) {
-  //       return console.log(err);
-  //     }
-  //     console.log("The file was saved!");
-  //   });
-  // }
+  getMoodGif(mood) {
+    return new Promise(function(resolve, reject) {
+      let request = new XMLHttpRequest();
+      let url = `http://api.giphy.com/v1/gifs/search?q=${mood}&api_key=E0NfURlddZ2EKmbKrAcxyAMOrFvYsSb9&limit=5`
+      request.onload = function() {
+        if(this.status === 200) {
+          resolve(request.response);
+        } else {
+          reject(Error(request.statusText));
+        }
+      }
+      request.open("GET", url, true);
+      request.send();
+    });
+  }
 }

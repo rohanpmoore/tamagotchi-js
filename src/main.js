@@ -62,32 +62,59 @@ $(document).ready(function(){
       });
       $("#status-alerts").html(`${alerts}`);
     }
+    const min = Math.min(tamagotchi.hunger, tamagotchi.thirst, tamagotchi.boredom);
+    if(min === 100 || min === 75 || min === 50 || min === 25 || min === 10 || min == 0) {
+      updateGif();
+    }
+  }
+  function updateGif() {
+    let promise;
+    if(tamagotchi.hunger === 0 || tamagotchi.thirst == 0) {
+      promise = tamagotchi.getMoodGif("Dead");
+    } else if(tamagotchi.boredom === 0) {
+      promise = tamagotchi.getMoodGif("Disappeared");
+    } else {
+      promise = tamagotchi.getMoodGif(tamagotchi.mood);
+    }
+
+    promise.then(function(response) {
+      let body = JSON.parse(response);
+      $("#gif").html(`<img src="${body.data[2].images.fixed_height.url}">`)
+    }, function(error) {
+      $("#error").text(`${error.message}`)
+    });
   }
   $('#pizza-slice').click(function(){
     if(checkGameOn()) {
       tamagotchi.eatPizzaSlice();
       update();
+      updateGif();
     }
   })
   $('#pizza-whole').click(function(){
     if(checkGameOn()) {
       tamagotchi.eatPizzaWhole();
       update();
+      updateGif();
     }
   })
   $('#play-fetch').click(function(){
     if(checkGameOn()) {
       tamagotchi.playFetch();
       update();
+      updateGif();
     }
   })
   $('#water').click(function(){
     if(checkGameOn()) {
       tamagotchi.drinkGlassOfWater();
       update();
+      updateGif();
     }
   })
   function checkGameOn() {
     return !(tamagotchi.hunger === 0 || tamagotchi.thirst === 0 || tamagotchi.boredom === 0)
   }
 })
+
+//gif set two is current best

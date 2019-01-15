@@ -1,4 +1,5 @@
 import { Tamagotchi } from './../src/tamagotchi.js';
+import 'faker';
 
 describe('A Tamagotchi', function() {
   let tamagotchi = null;
@@ -43,5 +44,9 @@ describe('A Tamagotchi', function() {
     expect(tamagotchi.alerts).toEqual(["I'M THIRSTY!", "I'M BORED!"])
   });
 
-
+  it('will display a random sentence from the tamagotchi', function() {
+    expect(tamagotchi.message).toEqual("I really love being a program!")
+    jasmine.clock().tick(150001);
+    expect(tamagotchi.message).not.toEqual("I really love being a program!")
+  });
 });
