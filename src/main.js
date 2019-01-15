@@ -53,7 +53,7 @@ $(document).ready(function(){
     $("#status-thirst").text(`Thirst: ${tamagotchi.thirst}`);
     $("#status-boredom").text(`Boredom: ${tamagotchi.boredom}`);
     $("#status-mood").text(`Mood: ${tamagotchi.mood}`);
-    if(tamagotchi.mood === "Desperate") {
+    if(tamagotchi.mood === "Panic") {
       $("#status-alerts").html(`<p style="font-size: 20pt">I'm going to be gone if you don't pay attention!</p>`);
     } else {
       let alerts = ``;
