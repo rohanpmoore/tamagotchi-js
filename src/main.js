@@ -62,7 +62,7 @@ $(document).ready(function(){
       });
       $("#status-alerts").html(`${alerts}`);
     }
-    const min = Math.min(tamagotchi.hunger, tamagotchi.thirst, tamagotchi.boredom);
+    const min = tamagotchi.lowestValue();
     if(min === 100 || min === 75 || min === 50 || min === 25 || min === 10 || min == 0) {
       updateGif();
     }
@@ -85,36 +85,31 @@ $(document).ready(function(){
     });
   }
   $('#pizza-slice').click(function(){
-    if(checkGameOn()) {
+    if(tamagotchi.isAlive()) {
       tamagotchi.eatPizzaSlice();
       update();
       updateGif();
     }
   })
   $('#pizza-whole').click(function(){
-    if(checkGameOn()) {
+    if(tamagotchi.isAlive()) {
       tamagotchi.eatPizzaWhole();
       update();
       updateGif();
     }
   })
   $('#play-fetch').click(function(){
-    if(checkGameOn()) {
+    if(tamagotchi.isAlive()) {
       tamagotchi.playFetch();
       update();
       updateGif();
     }
   })
   $('#water').click(function(){
-    if(checkGameOn()) {
+    if(tamagotchi.isAlive()) {
       tamagotchi.drinkGlassOfWater();
       update();
       updateGif();
     }
   })
-  function checkGameOn() {
-    return !(tamagotchi.hunger === 0 || tamagotchi.thirst === 0 || tamagotchi.boredom === 0)
-  }
 })
-
-//gif set two is current best

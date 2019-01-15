@@ -40,7 +40,7 @@ export class Tamagotchi {
   }
 
   checkMood() {
-    const lowest = Math.min(this.hunger, this.thirst, this.boredom);
+    const lowest = this.lowestValue();
     if(lowest <= 10) {
       this.mood = "Panic";
     } else if (lowest <= 25) {
@@ -54,7 +54,13 @@ export class Tamagotchi {
     }
   }
 
+  isAlive() {
+    return !(this.hunger === 0 || this.thirst === 0 || this.boredom === 0);
+  }
 
+  lowestValue() {
+    return Math.min(this.hunger, this.thirst, this.boredom);
+  }
 
   feed(amount) {
     this.hunger = Math.min((this.hunger + amount), 100);
