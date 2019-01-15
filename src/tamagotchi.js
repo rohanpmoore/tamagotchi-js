@@ -39,13 +39,14 @@ export class Tamagotchi {
   }
 
   checkMood() {
-    if((this.hunger <= 10) || (this.thirst <= 10) || (this.boredom <= 10)) {
+    const lowest = Math.min(this.hunger, this.thirst, this.boredom);
+    if(lowest <= 10) {
       this.mood = "Desperate";
-    } else if ((this.hunger <= 25) || (this.thirst <= 25) || (this.boredom <= 25)) {
+    } else if (lowest <= 25) {
       this.mood = "Angry";
-    } else if ((this.hunger <= 50) || (this.thirst <= 50) || (this.boredom <= 50)) {
+    } else if (lowest <= 50) {
       this.mood = "Irritated";
-    } else if ((this.hunger <= 75) || (this.thirst <= 75) || (this.boredom <= 75)) {
+    } else if (lowest <= 75) {
       this.mood = "Indifferent";
     } else {
       this.mood = "Happy"
