@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 $(document).ready(function(){
   let tamagotchi = null;
-  const DEV = 100;
   $("#new").click(function() {
     $("#main-menu").hide();
     $("#create").show();
@@ -36,7 +35,7 @@ $(document).ready(function(){
           tamagotchi.end();
           $("#end").text(`${tamagotchi.name} has run away out of boredom!`)
         }
-      }, 30000 * tamagotchi.difficulty/DEV)
+      }, 30000 * tamagotchi.difficulty/tamagotchi.devspeed)
       $("#stop").click(()=> {
         clearInterval(updateDisplay);
         tamagotchi.end();

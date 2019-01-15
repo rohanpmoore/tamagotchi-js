@@ -1,8 +1,6 @@
-const DEV = 1;
-const messages = [];
-
 export class Tamagotchi {
-  constructor(name, color, difficulty) {
+  constructor(name, color, difficulty, devspeed = 100) {
+    this.devspeed = devspeed;
     this.name = name;
     this.hunger = 100;
     this.thirst = 100;
@@ -17,10 +15,11 @@ export class Tamagotchi {
       this.thirst--;
       this.boredom--;
       this.checkAlerts();
-    }, 30000*this.difficulty/DEV);
+    }, 30000*this.difficulty/this.devspeed);
     this.messagePicker = setInterval(() => {
-      this.message = messages[Math.floor(Math.random()*messages.length)];
-    }, 150000*this.difficulty/DEV);
+      this.message = this.messageList[Math.floor(Math.random()*this.messageList.length)];
+    }, 150000*this.difficulty/this.devspeed);
+    this.messageList = []
   }
 
   checkAlerts() {
