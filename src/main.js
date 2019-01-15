@@ -2,6 +2,8 @@
 import './styles.css';
 import { Tamagotchi } from './tamagotchi.js';
 import $ from 'jquery';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 $(document).ready(function(){
   let tamagotchi = null;
@@ -19,7 +21,7 @@ $(document).ready(function(){
       $("#create-form").hide();
       $("#title").show();
       $("#title").prepend(`<li>Difficulty: ${4-tamagotchi.difficulty}</li><br>`);
-      $("#title").prepend(`<li>Color: ${tamagotchi.color}</li><br>`);
+      $("body").css('background-color', tamagotchi.color);
       $("#title").prepend(`<li>Name: ${tamagotchi.name}</li><br>`);
       $("#error").hide();
       update();
@@ -51,11 +53,16 @@ $(document).ready(function(){
     $("#status-hunger").text(`Hunger: ${tamagotchi.hunger}`);
     $("#status-thirst").text(`Thirst: ${tamagotchi.thirst}`);
     $("#status-boredom").text(`Boredom: ${tamagotchi.boredom}`);
-    let alerts = ``;
-    tamagotchi.alerts.forEach(function(alert) {
-      alerts += `${alert}<br>`
-    });
-    $("#status-alerts").html(`${alerts}`);
+    $("#status-mood").text(`Mood: ${tamagotchi.mood}`);
+    if(tamagotchi.mood === "Desperate") {
+      $("#status-alerts").html(`<p style="font-size: 20pt">I'm going to be gone if you don't pay attention!</p>`);
+    } else {
+      let alerts = ``;
+      tamagotchi.alerts.forEach(function(alert) {
+        alerts += `${alert}<br>`
+      });
+      $("#status-alerts").html(`${alerts}`);
+    }
   }
   $('#pizza-slice').click(function(){
     if(checkGameOn()) {

@@ -1,4 +1,5 @@
 const DEV = 100;
+const messages = [];
 
 export class Tamagotchi {
   constructor(name, color, difficulty) {
@@ -6,34 +7,52 @@ export class Tamagotchi {
     this.hunger = 100;
     this.thirst = 100;
     this.boredom = 100;
+    this.mood = "Happy";
     this.alerts = [];
     this.color = color;
     this.difficulty = 4-difficulty;
+    this.message = "I really love being a program!"
     this.decay = setInterval(() => {
       this.hunger--;
       this.thirst--;
       this.boredom--;
       this.checkAlerts();
     }, 30000*this.difficulty/DEV);
+    this.messagePicker = setInterval(() => {
+      this.message = messages[Math.floor(Math.rand()*messages.length)];
+    }, 150000*this.difficulty/DEV);
   }
 
   checkAlerts() {
-    if(this.hunger <= 50 && !this.alerts.includes("FEED ME!")) {
-      this.alerts.push("FEED ME!");
-    } else if(this.hunger > 50 && this.alerts.includes("FEED ME!")) {
-      this.alerts.splice(this.alerts.indexOf("FEED ME!"), 1);
-    }
-    if(this.thirst <= 50 && !this.alerts.includes("I'M THIRSTY!")) {
-      this.alerts.push("I'M THIRSTY!");
-    } else if(this.thirst > 50 && this.alerts.includes("I'M THIRSTY!")) {
-      this.alerts.splice(this.alerts.indexOf("I'M THIRSTY!"), 1);
-    }
-    if(this.boredom <= 50 && !this.alerts.includes("I'M BORED!")) {
-      this.alerts.push("I'M BORED!");
-    } else if(this.boredom > 50 && this.alerts.includes("I'M BORED!")) {
-      this.alerts.splice(this.alerts.indexOf("I'M BORED!"), 1);
+    this.checkMood();
+    this.statusHelper(this.hunger, 50, "FEED ME!");
+    this.statusHelper(this.thirst, 50, "I'M THIRSTY!");
+    this.statusHelper(this.boredom, 50, "I'M BORED!");
+  }
+
+  statusHelper(variable, threshold, text) {
+    if(variable <= threshold && !this.alerts.includes(text)) {
+      this.alerts.push(text);
+    } else if(variable > threshold && this.alerts.includes(text)) {
+      this.alerts.splice(this.alerts.indexOf(text), 1);
     }
   }
+
+  checkMood() {
+    if((this.hunger <= 10) || (this.thirst <= 10) || (this.boredom <= 10)) {
+      this.mood = "Desperate";
+    } else if ((this.hunger <= 25) || (this.thirst <= 25) || (this.boredom <= 25)) {
+      this.mood = "Angry";
+    } else if ((this.hunger <= 50) || (this.thirst <= 50) || (this.boredom <= 50)) {
+      this.mood = "Irritated";
+    } else if ((this.hunger <= 75) || (this.thirst <= 75) || (this.boredom <= 75)) {
+      this.mood = "Indifferent";
+    } else {
+      this.mood = "Happy"
+    }
+  }
+
+
 
   feed(amount) {
     this.hunger = Math.min((this.hunger + amount), 100);
@@ -71,6 +90,7 @@ export class Tamagotchi {
 
   end() {
     clearInterval(this.decay);
+    clearInterval(this.messagePicker);
   }
 
   // save() {
