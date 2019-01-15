@@ -19,9 +19,9 @@ $(document).ready(function(){
       tamagotchi = new Tamagotchi($("#name").val(), $("#color").val(),parseInt($("#difficulty").val()));
       $("#create-form").hide();
       $("#title").show();
-      $("#title").prepend(`<li>Difficulty: ${4-tamagotchi.difficulty}</li><br>`);
+      $("#title").prepend(`<p>Difficulty: ${4-tamagotchi.difficulty}</p>`);
       $("body").css('background-color', tamagotchi.color);
-      $("#title").prepend(`<li>Name: ${tamagotchi.name}</li><br>`);
+      $("#title").prepend(`<p>Name: ${tamagotchi.name}</p>`);
       $("#error").hide();
       update();
       const updateDisplay = setInterval(() => {
