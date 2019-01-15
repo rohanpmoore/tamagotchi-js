@@ -1,4 +1,4 @@
-const DEV = 100;
+const DEV = 1;
 const messages = [];
 
 export class Tamagotchi {
@@ -19,7 +19,7 @@ export class Tamagotchi {
       this.checkAlerts();
     }, 30000*this.difficulty/DEV);
     this.messagePicker = setInterval(() => {
-      this.message = messages[Math.floor(Math.rand()*messages.length)];
+      this.message = messages[Math.floor(Math.random()*messages.length)];
     }, 150000*this.difficulty/DEV);
   }
 

@@ -4,8 +4,8 @@ describe('A Tamagotchi', function() {
   let tamagotchi = null;
 
   beforeEach(function() {
-    tamagotchi = new Tamagotchi("Test", "Blue", 2);
     jasmine.clock().install();
+    tamagotchi = new Tamagotchi("Test", "Blue", 2);
   });
 
   afterEach(function() {
